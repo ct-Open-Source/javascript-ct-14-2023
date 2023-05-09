@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<body>
+    <h1></h1>
+    <div id="result"></div>
+    <button>Fibonacci!</button>
+    <script>
+        function getFib() {
+            const N = 100;
+            fetch(`http://localhost:31337/fibonacci/${N}`)
+                .then(response => response.json())
+                .then(result => {
+                    document.querySelector('h1').textContent = `Die ersten ${result.n} Fibonacci-Zahlen`;
+                    document.querySelector('#result').textContent = result.seq.join(', ');
+                    button_el.remove();
+                })
+                .catch(err => {
+                    document.querySelector('#result').textContent = err;
+                });
+        }
+        const button_el = document.querySelector('button');
+        button_el.addEventListener('click', getFib);
+    </script>
+</body>
+
+</html>
